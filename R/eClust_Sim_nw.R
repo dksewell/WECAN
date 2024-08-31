@@ -1,3 +1,15 @@
+
+#' @import igraph
+#' @import actuar
+#' @import LaplacesDemon
+#' @import SimDesign
+#' @import dplyr
+#' @import truncnorm
+#' @export
+
+
+
+
 if (FALSE){
   library(igraph)
   library(actuar)
@@ -262,138 +274,138 @@ eClust_Sim_w = function(Set=1, nSims = 1,n=400,M=2e4,showPB=TRUE,p = 2,
               lam = lam, Lambda = Lambda, beta = beta,phi = phi, Eta = Eta))
 }
 
-if (FALSE){
-  library(dplyr)
-  library(MetBrewer)
-  library(RColorBrewer)
-  
-  set.seed(1234)
-  
-  network_data_1 <- eClust_Sim_w(Set=1, distribution = "Normal", Lambda_sc = 5, 
-                                 UVShape=100, UVRate=40, mag=0.6, Ymag=0.5, noise_mean = 0.1,
-                                 phi_max = 0.2, noise_prop = 0.1)
-  
-  
-  par(mfrow=c(1,2))
-  # network_data_1 <- eClust_Sim(Set=1)
-  
-  table(network_data_1$Z)
-  summary(E(network_data_1$A[[1]])$weight)
-  
-  
-  hist(log(E(network_data_1$A[[1]])$weight), xlab = "Weight")
-  
-  temp <- cbind(log(E(network_data_1$A[[1]])$weight), E(network_data_1$A[[1]])$cluster)
-  colnames(temp) <- c("weight","cluster")
-  temp <- as_tibble(temp)
-  
-  mean_ord <- temp %>% group_by(cluster) %>% 
-    summarise(mean_weight=mean(weight)) %>% 
-    arrange(mean_weight)
-  
-  temp <- temp %>% arrange(match(cluster, mean_ord$cluster))
-  
-  plot(temp$weight, col=met.brewer("Austria")[temp$cluster], pch=temp$cluster, cex=1.5,
-       xlab="", ylab="weight")
-  
-  temp %>% group_by(cluster) %>% summarize(Mean = mean(weight), Vari = sd(weight))
-  
-  saveRDS(network_data_1, "C:/Project/Thesis/temp/Data/noisy_network_sample1.RDS")
-  
-  
-  
-  
-  
-  
-  plot_lnorm = function(m = c(8.7,2.1,-2.1,-6),
-                        v = c(3.6,3.6,3.6,3.6)){
-    
-    
-    
-    xl = qlnorm(0.99, max(m),v[which.max(m)])
-    yl = dlnorm(exp(min(m) - v[which.min(m)]^2), min(m),v[which.min(m)])
-    
-    cols = gray(seq(0.2,0.8,l = length(m)))
-    
-    curve(dlnorm(x,m[1],v[1]),
-          from = 0,
-          to = xl,
-          xlab = '',
-          ylab = '',
-          bty = 'l',
-          lwd = 3,
-          col = cols[1],
-          ylim = c(0,yl))
-    
-    if(length(m) > 1){
-       for(j in 2:length(m)){
-        curve(dlnorm(x,m[j],v[j]),
-              add = T,
-              col = cols[j],
-              lwd = 3)
-        
-      }
-      
-    }
-      
-    curve(dexp(x,1),
-          add = T,
-          lty = 2,
-          col = 2)
-    
-  }
-  
-  
-  
-  
-  
-  plot_norm = function(m = c(8.7,2.1,-2.1,-6),
-                       v = c(3.6,3.6,3.6,3.6)){
-    
-    
-    
-    xl = qnorm(0.99, max(m),v[which.max(m)])
-    yl = dnorm(m[which.min(v)], m[which.min(v)],min(v))
-    
-    cols = gray(seq(0.2,0.8,l = length(m)))
-    
-    curve(dnorm(x,m[1],v[1]),
-          from = -xl,
-          to = xl,
-          xlab = '',
-          ylab = '',
-          bty = 'l',
-          lwd = 3,
-          col = cols[1],
-          ylim = c(0,yl))
-    
-    if(length(m) > 1){
-      for(j in 2:length(m)){
-        curve(dnorm(x,m[j],v[j]),
-              add = T,
-              col = cols[j])
-        
-      }
-      
-    }
-  
-  }
-  
-  
-plot_lnorm(m = c(3.73, 8.22, 1.49, 5.93),
-             v = rep(1.3,4))
-  
-plot_norm(m =c(3.73, 8.22, 1.49, 5.93),
-            v = rep(1.05,4))
-  
-  qexp(0.95,1);qlnorm(0.05,2,0.2)
-  
-  hist(rlnorm(1e4,8,1))
-  
-  
-  
-  
-  
-  
-}
+# if (FALSE){
+#   library(dplyr)
+#   library(MetBrewer)
+#   library(RColorBrewer)
+#   
+#   set.seed(1234)
+#   
+#   network_data_1 <- eClust_Sim_w(Set=1, distribution = "Normal", Lambda_sc = 5, 
+#                                  UVShape=100, UVRate=40, mag=0.6, Ymag=0.5, noise_mean = 0.1,
+#                                  phi_max = 0.2, noise_prop = 0.1)
+#   
+#   
+#   par(mfrow=c(1,2))
+#   # network_data_1 <- eClust_Sim(Set=1)
+#   
+#   table(network_data_1$Z)
+#   summary(E(network_data_1$A[[1]])$weight)
+#   
+#   
+#   hist(log(E(network_data_1$A[[1]])$weight), xlab = "Weight")
+#   
+#   temp <- cbind(log(E(network_data_1$A[[1]])$weight), E(network_data_1$A[[1]])$cluster)
+#   colnames(temp) <- c("weight","cluster")
+#   temp <- as_tibble(temp)
+#   
+#   mean_ord <- temp %>% group_by(cluster) %>% 
+#     summarise(mean_weight=mean(weight)) %>% 
+#     arrange(mean_weight)
+#   
+#   temp <- temp %>% arrange(match(cluster, mean_ord$cluster))
+#   
+#   plot(temp$weight, col=met.brewer("Austria")[temp$cluster], pch=temp$cluster, cex=1.5,
+#        xlab="", ylab="weight")
+#   
+#   temp %>% group_by(cluster) %>% summarize(Mean = mean(weight), Vari = sd(weight))
+#   
+#   saveRDS(network_data_1, "C:/Project/Thesis/temp/Data/noisy_network_sample1.RDS")
+#   
+#   
+#   
+#   
+#   
+#   
+#   plot_lnorm = function(m = c(8.7,2.1,-2.1,-6),
+#                         v = c(3.6,3.6,3.6,3.6)){
+#     
+#     
+#     
+#     xl = qlnorm(0.99, max(m),v[which.max(m)])
+#     yl = dlnorm(exp(min(m) - v[which.min(m)]^2), min(m),v[which.min(m)])
+#     
+#     cols = gray(seq(0.2,0.8,l = length(m)))
+#     
+#     curve(dlnorm(x,m[1],v[1]),
+#           from = 0,
+#           to = xl,
+#           xlab = '',
+#           ylab = '',
+#           bty = 'l',
+#           lwd = 3,
+#           col = cols[1],
+#           ylim = c(0,yl))
+#     
+#     if(length(m) > 1){
+#        for(j in 2:length(m)){
+#         curve(dlnorm(x,m[j],v[j]),
+#               add = T,
+#               col = cols[j],
+#               lwd = 3)
+#         
+#       }
+#       
+#     }
+#       
+#     curve(dexp(x,1),
+#           add = T,
+#           lty = 2,
+#           col = 2)
+#     
+#   }
+#   
+#   
+#   
+#   
+#   
+#   plot_norm = function(m = c(8.7,2.1,-2.1,-6),
+#                        v = c(3.6,3.6,3.6,3.6)){
+#     
+#     
+#     
+#     xl = qnorm(0.99, max(m),v[which.max(m)])
+#     yl = dnorm(m[which.min(v)], m[which.min(v)],min(v))
+#     
+#     cols = gray(seq(0.2,0.8,l = length(m)))
+#     
+#     curve(dnorm(x,m[1],v[1]),
+#           from = -xl,
+#           to = xl,
+#           xlab = '',
+#           ylab = '',
+#           bty = 'l',
+#           lwd = 3,
+#           col = cols[1],
+#           ylim = c(0,yl))
+#     
+#     if(length(m) > 1){
+#       for(j in 2:length(m)){
+#         curve(dnorm(x,m[j],v[j]),
+#               add = T,
+#               col = cols[j])
+#         
+#       }
+#       
+#     }
+#   
+#   }
+#   
+#   
+# plot_lnorm(m = c(3.73, 8.22, 1.49, 5.93),
+#              v = rep(1.3,4))
+#   
+# plot_norm(m =c(3.73, 8.22, 1.49, 5.93),
+#             v = rep(1.05,4))
+#   
+#   qexp(0.95,1);qlnorm(0.05,2,0.2)
+#   
+#   hist(rlnorm(1e4,8,1))
+#   
+#   
+#   
+#   
+#   
+#   
+# }
 
