@@ -44,7 +44,7 @@ if (FALSE){
 
 
 
-eClust_Sim_w = function(Set=1, nSims = 1,n=400,M=2e4,showPB=TRUE,p = 2,
+eClust_Sim_nw = function(Set=1, nSims = 1,n=400,M=2e4,showPB=TRUE,p = 2,
                         K = 2*p,distribution = "Normal",Lambda_sc = 5,
                         UVShape=100, UVRate=40, mag=0.5,Ymag = 1, if_weight = TRUE,
                         with_noise = TRUE, noise_prop = 0.1, noise_mean = 0.5,
@@ -281,7 +281,7 @@ eClust_Sim_w = function(Set=1, nSims = 1,n=400,M=2e4,showPB=TRUE,p = 2,
 #   
 #   set.seed(1234)
 #   
-#   network_data_1 <- eClust_Sim_w(Set=1, distribution = "Normal", Lambda_sc = 5, 
+#   network_data_1 <- eClust_Sim_nw(Set=1, distribution = "Normal", Lambda_sc = 5, 
 #                                  UVShape=100, UVRate=40, mag=0.6, Ymag=0.5, noise_mean = 0.1,
 #                                  phi_max = 0.2, noise_prop = 0.1)
 #   

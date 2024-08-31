@@ -3,6 +3,7 @@
 S3method(BIC,eClust_GEM_w)
 export(eClust_GEM_wn)
 export(evalConditionalLik_wn2)
+export(indexEdges)
 import(LaplacesDemon)
 import(MASS)
 import(Rcpp)
