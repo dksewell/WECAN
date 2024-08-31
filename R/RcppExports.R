@@ -13,6 +13,10 @@ dQUVY <- function(SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, 
     .Call('_WECAN_dQUVY', PACKAGE = 'WECAN', SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0)
 }
 
+computeELBO_wn <- function(SS1, RR1, beta, SR1, SR2, UV, U, V, Y, Eta, log_h_phi, A_eta, a_phi, pi_phi, Pr_w_eta, EE, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk, Pk, Pm0, Elog_t_k, E_t_0, lambda_a, alpha, PmklogPmk, alphaTld, x_0) {
+    .Call('_WECAN_computeELBO_wn', PACKAGE = 'WECAN', SS1, RR1, beta, SR1, SR2, UV, U, V, Y, Eta, log_h_phi, A_eta, a_phi, pi_phi, Pr_w_eta, EE, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk, Pk, Pm0, Elog_t_k, E_t_0, lambda_a, alpha, PmklogPmk, alphaTld, x_0)
+}
+
 computeEta <- function(SS2, RR2, beta, U, V, EE, Lambda, K) {
     .Call('_WECAN_computeEta', PACKAGE = 'WECAN', SS2, RR2, beta, U, V, EE, Lambda, K)
 }

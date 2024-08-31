@@ -119,6 +119,51 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// computeELBO_wn
+double computeELBO_wn(const arma::colvec& SS1, const arma::colvec& RR1, const arma::colvec& beta, const arma::mat& SR1, const arma::mat& SR2, const arma::mat& UV, const arma::mat& U, const arma::mat& V, const arma::mat& Y, const arma::mat& Eta, const arma::mat& log_h_phi, const arma::mat& A_eta, const arma::colvec& a_phi, const arma::colvec& pi_phi, const arma::mat& Pr_w_eta, const IntegerMatrix& EE, const arma::mat& Phi_SR1, const arma::mat& Phi_SR2, const arma::mat& Phi_UV, const arma::colvec& WW, const double& a_0, const arma::cube& Lambda, const double& lam, const double& A_0, const double& B_0, const arma::mat& Pmk, const arma::rowvec& Pk, const arma::rowvec& Pm0, const arma::rowvec& Elog_t_k, const double& E_t_0, const double& lambda_a, const double& alpha, const double& PmklogPmk, const arma::rowvec& alphaTld, const double x_0);
+RcppExport SEXP _WECAN_computeELBO_wn(SEXP SS1SEXP, SEXP RR1SEXP, SEXP betaSEXP, SEXP SR1SEXP, SEXP SR2SEXP, SEXP UVSEXP, SEXP USEXP, SEXP VSEXP, SEXP YSEXP, SEXP EtaSEXP, SEXP log_h_phiSEXP, SEXP A_etaSEXP, SEXP a_phiSEXP, SEXP pi_phiSEXP, SEXP Pr_w_etaSEXP, SEXP EESEXP, SEXP Phi_SR1SEXP, SEXP Phi_SR2SEXP, SEXP Phi_UVSEXP, SEXP WWSEXP, SEXP a_0SEXP, SEXP LambdaSEXP, SEXP lamSEXP, SEXP A_0SEXP, SEXP B_0SEXP, SEXP PmkSEXP, SEXP PkSEXP, SEXP Pm0SEXP, SEXP Elog_t_kSEXP, SEXP E_t_0SEXP, SEXP lambda_aSEXP, SEXP alphaSEXP, SEXP PmklogPmkSEXP, SEXP alphaTldSEXP, SEXP x_0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type SS1(SS1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type RR1(RR1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type SR1(SR1SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type SR2(SR2SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type UV(UVSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type V(VSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Eta(EtaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type log_h_phi(log_h_phiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type A_eta(A_etaSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a_phi(a_phiSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type pi_phi(pi_phiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Pr_w_eta(Pr_w_etaSEXP);
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type EE(EESEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Phi_SR1(Phi_SR1SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Phi_SR2(Phi_SR2SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Phi_UV(Phi_UVSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type WW(WWSEXP);
+    Rcpp::traits::input_parameter< const double& >::type a_0(a_0SEXP);
+    Rcpp::traits::input_parameter< const arma::cube& >::type Lambda(LambdaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type lam(lamSEXP);
+    Rcpp::traits::input_parameter< const double& >::type A_0(A_0SEXP);
+    Rcpp::traits::input_parameter< const double& >::type B_0(B_0SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Pmk(PmkSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type Pk(PkSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type Pm0(Pm0SEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type Elog_t_k(Elog_t_kSEXP);
+    Rcpp::traits::input_parameter< const double& >::type E_t_0(E_t_0SEXP);
+    Rcpp::traits::input_parameter< const double& >::type lambda_a(lambda_aSEXP);
+    Rcpp::traits::input_parameter< const double& >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< const double& >::type PmklogPmk(PmklogPmkSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type alphaTld(alphaTldSEXP);
+    Rcpp::traits::input_parameter< const double >::type x_0(x_0SEXP);
+    rcpp_result_gen = Rcpp::wrap(computeELBO_wn(SS1, RR1, beta, SR1, SR2, UV, U, V, Y, Eta, log_h_phi, A_eta, a_phi, pi_phi, Pr_w_eta, EE, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk, Pk, Pm0, Elog_t_k, E_t_0, lambda_a, alpha, PmklogPmk, alphaTld, x_0));
+    return rcpp_result_gen;
+END_RCPP
+}
 // computeEta
 arma::mat computeEta(const arma::colvec& SS2, const arma::colvec& RR2, const arma::colvec& beta, const arma::mat& U, const arma::mat& V, const IntegerMatrix& EE, const arma::cube& Lambda, const int& K);
 RcppExport SEXP _WECAN_computeEta(SEXP SS2SEXP, SEXP RR2SEXP, SEXP betaSEXP, SEXP USEXP, SEXP VSEXP, SEXP EESEXP, SEXP LambdaSEXP, SEXP KSEXP) {
@@ -367,6 +412,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_WECAN_dQSR2", (DL_FUNC) &_WECAN_dQSR2, 27},
     {"_WECAN_QUVY", (DL_FUNC) &_WECAN_QUVY, 24},
     {"_WECAN_dQUVY", (DL_FUNC) &_WECAN_dQUVY, 27},
+    {"_WECAN_computeELBO_wn", (DL_FUNC) &_WECAN_computeELBO_wn, 35},
     {"_WECAN_computeEta", (DL_FUNC) &_WECAN_computeEta, 8},
     {"_WECAN_computePmk_w", (DL_FUNC) &_WECAN_computePmk_w, 15},
     {"_WECAN_computePmk_wn", (DL_FUNC) &_WECAN_computePmk_wn, 15},

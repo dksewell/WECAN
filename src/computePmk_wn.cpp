@@ -1,15 +1,9 @@
 #include <RcppArmadillo.h>
-
 // [[Rcpp::depends(RcppArmadillo)]]
-
-
 
 using namespace Rcpp;
 
-
-
 // [[Rcpp::export]]
-
 arma::mat computePmk_wn(const arma::colvec & SS1,
                        const arma::colvec & RR1,
                        const arma::mat & U,
