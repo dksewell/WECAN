@@ -2,62 +2,70 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 dQSR2 <- function(SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0) {
-    .Call(`_WECAN_dQSR2`, SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0)
+    .Call('_WECAN_dQSR2', PACKAGE = 'WECAN', SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0)
 }
 
 QUVY <- function(SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pk, EE, Eta, sigma_SR1, sigma_SR2, sigma_UV, SR1, SR2, UV, nu_0, eta_0) {
-    .Call(`_WECAN_QUVY`, SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pk, EE, Eta, sigma_SR1, sigma_SR2, sigma_UV, SR1, SR2, UV, nu_0, eta_0)
+    .Call('_WECAN_QUVY', PACKAGE = 'WECAN', SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pk, EE, Eta, sigma_SR1, sigma_SR2, sigma_UV, SR1, SR2, UV, nu_0, eta_0)
 }
 
 dQUVY <- function(SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0) {
-    .Call(`_WECAN_dQUVY`, SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0)
+    .Call('_WECAN_dQUVY', PACKAGE = 'WECAN', SS1, SS2, U, RR1, RR2, V, Y, Lambda, beta, phi, lam, WW, Pmk, Pmki1, Pmki2, Pk, Mi1Index, Mi2Index, Mi1, Mi2, EE, Eta, inv_sigma_SR1, inv_sigma_SR2, inv_sigma_UV, nu_0, eta_0)
 }
 
 computeEta <- function(SS2, RR2, beta, U, V, EE, Lambda, K) {
-    .Call(`_WECAN_computeEta`, SS2, RR2, beta, U, V, EE, Lambda, K)
+    .Call('_WECAN_computeEta', PACKAGE = 'WECAN', SS2, RR2, beta, U, V, EE, Lambda, K)
 }
 
-computePmk_w <- function(SS1, RR1, U, V, Y, alph, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi) {
-    .Call(`_WECAN_computePmk_w`, SS1, RR1, U, V, Y, alph, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi)
+computePmk_w <- function(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0) {
+    .Call('_WECAN_computePmk_w', PACKAGE = 'WECAN', SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0)
+}
+
+computePmk_wn <- function(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0) {
+    .Call('_WECAN_computePmk_wn', PACKAGE = 'WECAN', SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0)
 }
 
 evalConditionalLik_w <- function(z, SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk) {
-    .Call(`_WECAN_evalConditionalLik_w`, z, SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk)
+    .Call('_WECAN_evalConditionalLik_w', PACKAGE = 'WECAN', z, SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk)
 }
 
 evalMargLogLik_w <- function(SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk) {
-    .Call(`_WECAN_evalMargLogLik_w`, SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk)
+    .Call('_WECAN_evalMargLogLik_w', PACKAGE = 'WECAN', SS1, RR1, U, V, Y, Eta, WW, alph, phi, EE, Pmk)
 }
 
 evalMargPost_w <- function(SS1, RR1, SR1, SR2, UV, U, V, Y, Eta, A_eta, a_phi, pi_phi, Pr_w_eta, log_h_phi, sigma_SR1, sigma_SR2, sigma_UV, alph, EE, upsilon_SR1, upsilon_SR2, upsilon_UV, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk) {
-    .Call(`_WECAN_evalMargPost_w`, SS1, RR1, SR1, SR2, UV, U, V, Y, Eta, A_eta, a_phi, pi_phi, Pr_w_eta, log_h_phi, sigma_SR1, sigma_SR2, sigma_UV, alph, EE, upsilon_SR1, upsilon_SR2, upsilon_UV, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk)
+    .Call('_WECAN_evalMargPost_w', PACKAGE = 'WECAN', SS1, RR1, SR1, SR2, UV, U, V, Y, Eta, A_eta, a_phi, pi_phi, Pr_w_eta, log_h_phi, sigma_SR1, sigma_SR2, sigma_UV, alph, EE, upsilon_SR1, upsilon_SR2, upsilon_UV, Phi_SR1, Phi_SR2, Phi_UV, WW, a_0, Lambda, lam, A_0, B_0, Pmk)
 }
 
 getPmki <- function(Pmk, Mi1Index, Mi1) {
-    .Call(`_WECAN_getPmki`, Pmk, Mi1Index, Mi1)
+    .Call('_WECAN_getPmki', PACKAGE = 'WECAN', Pmk, Mi1Index, Mi1)
 }
 
 indexEdges <- function(EE, n) {
-    .Call(`_WECAN_indexEdges`, EE, n)
+    .Call('_WECAN_indexEdges', PACKAGE = 'WECAN', EE, n)
+}
+
+mat_mult <- function(A, B) {
+    .Call('_WECAN_mat_mult', PACKAGE = 'WECAN', A, B)
 }
 
 rcpp_hello_world <- function() {
-    .Call(`_WECAN_rcpp_hello_world`)
+    .Call('_WECAN_rcpp_hello_world', PACKAGE = 'WECAN')
 }
 
 rcpparma_hello_world <- function() {
-    .Call(`_WECAN_rcpparma_hello_world`)
+    .Call('_WECAN_rcpparma_hello_world', PACKAGE = 'WECAN')
 }
 
 rcpparma_outerproduct <- function(x) {
-    .Call(`_WECAN_rcpparma_outerproduct`, x)
+    .Call('_WECAN_rcpparma_outerproduct', PACKAGE = 'WECAN', x)
 }
 
 rcpparma_innerproduct <- function(x) {
-    .Call(`_WECAN_rcpparma_innerproduct`, x)
+    .Call('_WECAN_rcpparma_innerproduct', PACKAGE = 'WECAN', x)
 }
 
 rcpparma_bothproducts <- function(x) {
-    .Call(`_WECAN_rcpparma_bothproducts`, x)
+    .Call('_WECAN_rcpparma_bothproducts', PACKAGE = 'WECAN', x)
 }
 

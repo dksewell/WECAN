@@ -138,8 +138,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // computePmk_w
-arma::mat computePmk_w(const arma::colvec& SS1, const arma::colvec& RR1, const arma::mat& U, const arma::mat& V, const arma::mat& Y, const arma::rowvec& alph, const IntegerMatrix& EE, const arma::colvec& WW, const arma::mat& Eta, const arma::mat& A_eta, const arma::colvec& a_phi, const arma::mat& Pr_w_eta, const arma::mat& h_phi);
-RcppExport SEXP _WECAN_computePmk_w(SEXP SS1SEXP, SEXP RR1SEXP, SEXP USEXP, SEXP VSEXP, SEXP YSEXP, SEXP alphSEXP, SEXP EESEXP, SEXP WWSEXP, SEXP EtaSEXP, SEXP A_etaSEXP, SEXP a_phiSEXP, SEXP Pr_w_etaSEXP, SEXP h_phiSEXP) {
+arma::mat computePmk_w(const arma::colvec& SS1, const arma::colvec& RR1, const arma::mat& U, const arma::mat& V, const arma::mat& Y, const IntegerMatrix& EE, const arma::colvec& WW, const arma::mat& Eta, const arma::mat& A_eta, const arma::colvec& a_phi, const arma::mat& Pr_w_eta, const arma::mat& h_phi, const double& lambda_a, const arma::rowvec& Elog_t_k, const double& E_t_0);
+RcppExport SEXP _WECAN_computePmk_w(SEXP SS1SEXP, SEXP RR1SEXP, SEXP USEXP, SEXP VSEXP, SEXP YSEXP, SEXP EESEXP, SEXP WWSEXP, SEXP EtaSEXP, SEXP A_etaSEXP, SEXP a_phiSEXP, SEXP Pr_w_etaSEXP, SEXP h_phiSEXP, SEXP lambda_aSEXP, SEXP Elog_t_kSEXP, SEXP E_t_0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -148,7 +148,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type V(VSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
-    Rcpp::traits::input_parameter< const arma::rowvec& >::type alph(alphSEXP);
     Rcpp::traits::input_parameter< const IntegerMatrix& >::type EE(EESEXP);
     Rcpp::traits::input_parameter< const arma::colvec& >::type WW(WWSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Eta(EtaSEXP);
@@ -156,7 +155,35 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::colvec& >::type a_phi(a_phiSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type Pr_w_eta(Pr_w_etaSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type h_phi(h_phiSEXP);
-    rcpp_result_gen = Rcpp::wrap(computePmk_w(SS1, RR1, U, V, Y, alph, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi));
+    Rcpp::traits::input_parameter< const double& >::type lambda_a(lambda_aSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type Elog_t_k(Elog_t_kSEXP);
+    Rcpp::traits::input_parameter< const double& >::type E_t_0(E_t_0SEXP);
+    rcpp_result_gen = Rcpp::wrap(computePmk_w(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0));
+    return rcpp_result_gen;
+END_RCPP
+}
+// computePmk_wn
+arma::mat computePmk_wn(const arma::colvec& SS1, const arma::colvec& RR1, const arma::mat& U, const arma::mat& V, const arma::mat& Y, const IntegerMatrix& EE, const arma::colvec& WW, const arma::mat& Eta, const arma::mat& A_eta, const arma::colvec& a_phi, const arma::mat& Pr_w_eta, const arma::mat& h_phi, const double& lambda_a, const arma::rowvec& Elog_t_k, const double& E_t_0);
+RcppExport SEXP _WECAN_computePmk_wn(SEXP SS1SEXP, SEXP RR1SEXP, SEXP USEXP, SEXP VSEXP, SEXP YSEXP, SEXP EESEXP, SEXP WWSEXP, SEXP EtaSEXP, SEXP A_etaSEXP, SEXP a_phiSEXP, SEXP Pr_w_etaSEXP, SEXP h_phiSEXP, SEXP lambda_aSEXP, SEXP Elog_t_kSEXP, SEXP E_t_0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type SS1(SS1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type RR1(RR1SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type U(USEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type V(VSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type EE(EESEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type WW(WWSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Eta(EtaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type A_eta(A_etaSEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a_phi(a_phiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Pr_w_eta(Pr_w_etaSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type h_phi(h_phiSEXP);
+    Rcpp::traits::input_parameter< const double& >::type lambda_a(lambda_aSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type Elog_t_k(Elog_t_kSEXP);
+    Rcpp::traits::input_parameter< const double& >::type E_t_0(E_t_0SEXP);
+    rcpp_result_gen = Rcpp::wrap(computePmk_wn(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -270,6 +297,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// mat_mult
+arma::mat mat_mult(const arma::mat& A, const arma::mat& B);
+RcppExport SEXP _WECAN_mat_mult(SEXP ASEXP, SEXP BSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type B(BSEXP);
+    rcpp_result_gen = Rcpp::wrap(mat_mult(A, B));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello_world
 List rcpp_hello_world();
 RcppExport SEXP _WECAN_rcpp_hello_world() {
@@ -329,12 +368,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_WECAN_QUVY", (DL_FUNC) &_WECAN_QUVY, 24},
     {"_WECAN_dQUVY", (DL_FUNC) &_WECAN_dQUVY, 27},
     {"_WECAN_computeEta", (DL_FUNC) &_WECAN_computeEta, 8},
-    {"_WECAN_computePmk_w", (DL_FUNC) &_WECAN_computePmk_w, 13},
+    {"_WECAN_computePmk_w", (DL_FUNC) &_WECAN_computePmk_w, 15},
+    {"_WECAN_computePmk_wn", (DL_FUNC) &_WECAN_computePmk_wn, 15},
     {"_WECAN_evalConditionalLik_w", (DL_FUNC) &_WECAN_evalConditionalLik_w, 12},
     {"_WECAN_evalMargLogLik_w", (DL_FUNC) &_WECAN_evalMargLogLik_w, 11},
     {"_WECAN_evalMargPost_w", (DL_FUNC) &_WECAN_evalMargPost_w, 32},
     {"_WECAN_getPmki", (DL_FUNC) &_WECAN_getPmki, 3},
     {"_WECAN_indexEdges", (DL_FUNC) &_WECAN_indexEdges, 2},
+    {"_WECAN_mat_mult", (DL_FUNC) &_WECAN_mat_mult, 2},
     {"_WECAN_rcpp_hello_world", (DL_FUNC) &_WECAN_rcpp_hello_world, 0},
     {"_WECAN_rcpparma_hello_world", (DL_FUNC) &_WECAN_rcpparma_hello_world, 0},
     {"_WECAN_rcpparma_outerproduct", (DL_FUNC) &_WECAN_rcpparma_outerproduct, 1},

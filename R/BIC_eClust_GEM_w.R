@@ -5,9 +5,7 @@
 
 
 
-
-BIC.eClust_GEM_w = function(eCl,A){
-  
+BIC_eClust_GEM_w = function(eCl,A){
   c(BIC = -2*evalMargLogLik_w(eCl$estimates$S1,eCl$estimates$R1,  
                               
                               eCl$estimates$U,eCl$estimates$V,

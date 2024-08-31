@@ -327,7 +327,7 @@ eClust_GEM_wn = function(A, K = 2,
     E_t_0 = (alpha_0+ x_0)/(alpha_0+beta_0 + M)
     
     ## sourceCpp(file = "H:/Project/Thesis/Thesis/weighted_edge_cluster/Scripts/Cpp/computePmk_wn.cpp")
-    Pmk_all = computePmk_wn(S1,R1,U,V,Y,EE,W_adj,Eta,A_eta,a_phi,Pr_w_eta,h_phi, lambda_a, Elog_t_k, E_t_0)
+    Pmk_all = computePmk_w(S1,R1,U,V,Y,EE,W_adj,Eta,A_eta,a_phi,Pr_w_eta,h_phi, lambda_a, Elog_t_k, E_t_0)
     Pmk = Pmk_all[,2:(K+1)]
     Pm0 = Pmk_all[,1]
     

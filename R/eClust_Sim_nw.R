@@ -9,41 +9,6 @@
 
 
 
-
-if (FALSE){
-  library(igraph)
-  library(actuar)
-  library(SimDesign)
-  library(LaplacesDemon)
-  library(tibble)
-  library(truncnorm)
-  
-  Set=1
-  nSims = 1
-  n=400
-  M=2e4
-  showPB=TRUE
-  distribution = "Normal"
-  Lambda_sc = 5
-  set.seed(1234)
-  p=2
-  K=4
-  UVShape=100
-  UVRate=40
-  mag=0.5
-  Ymag = 1
-  if_weight = TRUE
-  with_noise = TRUE
-  noise_mean = 0.5
-  noise_prop = 0.1
-  phi_min = 0.05
-  phi_max = 0.5
-}
-
-
-
-
-
 eClust_Sim_nw = function(Set=1, nSims = 1,n=400,M=2e4,showPB=TRUE,p = 2,
                         K = 2*p,distribution = "Normal",Lambda_sc = 5,
                         UVShape=100, UVRate=40, mag=0.5,Ymag = 1, if_weight = TRUE,

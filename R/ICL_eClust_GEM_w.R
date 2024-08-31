@@ -69,7 +69,7 @@ evalConditionalLik_wn2 <- function(Z, S1, R1, U, V, Y,
   
 }
 
-
+#' @export
 
 ICL.eClust_GEM_w = function(eCl,A){
  
