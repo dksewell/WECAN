@@ -1,4 +1,85 @@
-
+#' wecan: Weighted Edge Clustering Adjusting for Noise
+#' 
+#' This function implements the weighted edge clustering algorithm 
+#' of Li and Sewell
+#' 
+#' @param A Network object of class igraph
+#' @param K integer. Maximum number of clusters
+#' @param p integer. Dimension of latent space.
+#' @param maxIter integer. Maximum number of iterations of the VB-EM algorithm
+#' @param maxIterVB integer. Maximum number of iterations of the 
+#' VB step nested within the EM algorithm
+#' @param a_0 description  
+#' @param A_0 description 
+#' @param B_0 description
+#' @param nu_0 description
+#' @param eta_0 description 
+#' @param CGSteps Number of steps in each conjugate gradient update
+#' nested within the VB-EM algorithm
+#' @param distribution character.  Currently, only "Normal" and "Poisson" are supported.
+#' @param weight_attr_name character.  Name of the weight attribute of A to be modeled.
+#' @param eps description
+#' @param upsilon_SR1 description 
+#' @param upsilon_SR2 description
+#' @param upsilon_UV description
+#' @param Phi_SR1 description
+#' @param Phi_SR2 description
+#' @param Phi_UV description
+#' @param a_a description
+#' @param b_a description
+#' @param t_0 description
+#' @param alpha_0 description
+#' @param beta_0 description
+#' 
+#' @return Object of class 'wecan' with the following elements:
+#' \itemize{
+#' \item estimates, a list with the following elements:
+#'    \itemize{
+#'    \item S1 description
+#'    \item R1 description
+#'    \item S2 description
+#'    \item R2 description
+#'    \item U description
+#'    \item V description
+#'    \item Y description
+#'    \item Eta description
+#'    \item Pmk description
+#'    \item alpha description
+#'    \item Elog_t_k description
+#'    \item E_t_0 description
+#'    \item phi description
+#'    \item sigma_SR1 description
+#'    \item sigma_SR2 description
+#'    \item sigma_UV description
+#'    \item Lambda description
+#'    \item Z_est description
+#'    \item Z_init description
+#'    }
+#' \item userInputs, a list with the following elements:
+#'    \itemize{
+#'    \item K description
+#'    \item p description
+#'    \item Phi_SR1 description
+#'    \item Phi_SR2 description
+#'    \item Phi_UV description
+#'    \item upsilon_SR1 description
+#'    \item upsilon_SR2 description
+#'    \item upsilon_UV description
+#'    \item a_0 description
+#'    \item A_0 description
+#'    \item B_0 description
+#'    \item nu_0 description
+#'    \item eta_0 description
+#'    \item lambda_a description
+#'    }
+#' \item network, the original igraph object
+#' }
+#' 
+#' @examples
+#' \dontrun{
+#' #Fill in some code here to show how to use wecan(), BIC(), and ICL().
+#' }
+#' 
 #' @import igraph
 #' @import MASS
 #' @import LaplacesDemon
@@ -9,10 +90,11 @@
 #' @import mclust
 #' @import aLSEC
 #' @export
+#' @exportClass wecan
 
 
 
-eClust_GEM_wn = function(A, K = 2,
+wecan = function(A, K = 2,
                          p = 3,
                          maxIter=1e3,
                          maxIterVB=100,
@@ -21,10 +103,9 @@ eClust_GEM_wn = function(A, K = 2,
                          B_0 = 0.5,
                          nu_0 = 2,
                          eta_0 = 5,
-                         QNSteps=25,
                          CGSteps=25,
                          distribution = "Normal",
-                         if_log = FALSE,
+                         weight_attr_name = "weight",
                          eps=1e-5,
                          upsilon_SR1 = 2,
                          upsilon_SR2 = 2,
@@ -46,10 +127,10 @@ eClust_GEM_wn = function(A, K = 2,
   n = vcount(A)
   EE = cbind(ends(A,1:ecount(A),FALSE))
   W = E(A)$weight
-  A_adj <- as_adjacency_matrix(A, attr = "weight")
+  A_adj <- as_adjacency_matrix(A, attr = weight_attr_name)
   
   
-  ### sourceCpp(file = paste0(wd, "LSEC/src/indexEdges.cpp"))
+  ### Index edges
   cat("\n Indexing edgelist \n")
   temp = indexEdges(EE,n)
   Mi1 = temp$Mi1[,1:max(temp$Mi1Index)]
@@ -134,14 +215,6 @@ eClust_GEM_wn = function(A, K = 2,
   beta_int = beta
   
   
-  # S1 = degree(A, mode = "out")
-  # S1 = (S1 - mean(S1))/max(abs(S1 - mean(S1)))
-  # S1_init = S1
-  # R1 = degree(A, mode = "in")
-  # R1 = (R1 - mean(R1))/max(abs(R1 - mean(R1)))
-  # R1_init = R1
-  # SR1 = cbind(S1,R1)
-  
   
   S2 = strength(A, mode = "out")
   S2 = (S2 - mean(S2))/max(abs(S2 - mean(S2)))
@@ -151,16 +224,6 @@ eClust_GEM_wn = function(A, K = 2,
   R2_init = R2
   SR2 = cbind(S2,R2)
   
-  
-  # U = svd(A_adj,nu = p, nv = p)$u
-  # V = svd(A_adj,nu = p, nv = p)$v
-  # 
-  # U_init = U
-  # V_init = V
-  # UV = cbind(U,V)
-  # 
-  # Y = matrix(1,K,p)
-  # alpha = ifelse(is.null(alpha_init), a_a/b_a, alpha_init)
   
   lam = 0.1
   
@@ -194,10 +257,6 @@ eClust_GEM_wn = function(A, K = 2,
   Y <- init$estimates$W
   alpha <- init$estimates$alpha
   
-  # plot(U, vegan::procrustes(Truth$U, U)$Yrot)
-  # plot(V, vegan::procrustes(Truth$V, V)$Yrot)
-  
-  
   
   
   Eta = computeEta(S2, R2, beta, U, V, EE, Lambda, K)
@@ -218,11 +277,8 @@ eClust_GEM_wn = function(A, K = 2,
   }
   
   if (distribution == "Normal"){
-    if (if_log) {W_adj = log(W)
-    }else {W_adj = W}
     
     phi = rep(sd(W_adj), K)
-    # phi = rep(0.1, K)
     
     A_eta = Eta^2/2
     Pr_w_eta = matrix(1, ncol = K, nrow = M)
@@ -246,7 +302,6 @@ eClust_GEM_wn = function(A, K = 2,
   }
   
   
-  ## sourceCpp(file = "H:/Project/Thesis/Thesis/weighted_edge_cluster/Scripts/Cpp/computePmk_w.cpp")
   Pm0 = numeric(M)
   Pm0[noise_index] = 1
   Pm0[non_noise_index] = 0
@@ -258,14 +313,6 @@ eClust_GEM_wn = function(A, K = 2,
   Pmk_all[non_noise_index,2:(K+1)] = Pmk
   
   Pmk = Pmk_all[,2:(K+1)]
-  
-  
-  # alphaTld = rep(alpha, K)
-  # Elog_t_k = digamma(alphaTld) - digamma(K*alpha + M - t_0)
-  # E_t_0 = (alpha_0+ t_0)/(alpha_0+beta_0 + M)
-  # Pmk_all = computePmk_wn(S1,R1,U,V,Y,EE,W_adj,Eta,A_eta,a_phi,Pr_w_eta,h_phi, lambda_a, Elog_t_k, E_t_0)
-  # Pmk = Pmk_all[,2:(K+1)]
-  # Pm0 = Pmk_all[,1]
   
   
   Pk = colSums(Pmk)
@@ -326,7 +373,6 @@ eClust_GEM_wn = function(A, K = 2,
     Elog_t_k = digamma(alphaTld) - digamma(K*alpha + M - x_0)
     E_t_0 = (alpha_0+ x_0)/(alpha_0+beta_0 + M)
     
-    ## sourceCpp(file = "H:/Project/Thesis/Thesis/weighted_edge_cluster/Scripts/Cpp/computePmk_wn.cpp")
     Pmk_all = computePmk_wn(S1,R1,U,V,Y,EE,W_adj,Eta,A_eta,a_phi,Pr_w_eta,h_phi, lambda_a, Elog_t_k, E_t_0)
     Pmk = Pmk_all[,2:(K+1)]
     Pm0 = Pmk_all[,1]
@@ -334,7 +380,6 @@ eClust_GEM_wn = function(A, K = 2,
     Pk = colSums(Pmk)
     PmklogPmk = sum(Pmk_all[Pmk_all!=0]*log(Pmk_all[Pmk_all!=0]))
     
-    ## sourceCpp(file = "H:/Project/Thesis/Thesis/LSEC/src/getPmki.cpp")
     Pmki1 = getPmki(Pmk,Mi1Index,Mi1)
     Pmki2 = getPmki(Pmk,Mi2Index,Mi2)
     
@@ -346,7 +391,6 @@ eClust_GEM_wn = function(A, K = 2,
     ELBO_Estep = numeric(maxIterVB)
     
     
-    ## sourceCpp(file = "H:/Project/Thesis/Thesis/weighted_edge_cluster/Scripts/Cpp/evalMargPost_w.cpp")
     ELBO_Estep[1] = computeELBO_wn(S1,R1,beta,SR1,SR2,UV,U,V,Y,Eta,log_h_phi,A_eta,a_phi,
                                    pi_phi,Pr_w_eta,  EE,
                                    Phi_SR1,Phi_SR2,Phi_UV,W_adj,a_0,Lambda,lam, A_0, B_0,Pmk, Pk,Pm0,
@@ -474,12 +518,6 @@ eClust_GEM_wn = function(A, K = 2,
   
   
   Z_est = apply(Pmk_all,1,find_clust)
-  # (ARI_weighted = adjustedRandIndex(Z_est, E(A)$cluster))
-  # (ARI_init = adjustedRandIndex(Z_init, E(A)$cluster))
-  # Z_temp <- ifelse(E(A)$cluster == 5, 1, 2)
-  # Z_est2 <- ifelse(Z_est == 1, 1, 2)
-  # adjustedRandIndex(Z_est2, Z_temp)
-  
   
   ret = list(estimates = list(S1=S1,
                               R1=R1,
@@ -513,14 +551,11 @@ eClust_GEM_wn = function(A, K = 2,
                                B_0 = B_0,
                                nu_0 = nu_0,
                                eta_0 = eta_0,
-                               lambda_a = lambda_a))
-  class(ret) = "eClust_GEM"
+                               lambda_a = lambda_a),
+             network = A)
+  class(ret) = "wecan"
+  
   return(ret)
-  
-  
-  
-  
-  
 }
 
 
