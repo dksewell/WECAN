@@ -4,14 +4,6 @@
 using namespace Rcpp;
 using namespace arma;
 
-
-// S1,R1,beta,SR1,SR2,UV,U,V,Y,Eta,log_h_phi,A_eta,a_phi,
-// pi_phi,Pr_w_eta, sigma_SR1,sigma_SR2,sigma_UV,alph=alpha,
-// EE,upsilon_SR1, upsilon_SR2, upsilon_UV,
-// Phi_SR1,Phi_SR2,Phi_UV,W_adj,a_0,Lambda,lam, A_0, B_0,Pmk, Pk,Pm0,
-// Elog_t_k, E_t_0, lambda_a, alpha, PmklogPmk, alphaTld, x_0
-
-
 // [[Rcpp::export]]
 double computeELBO_wn(const arma::colvec & SS1,
                       const arma::colvec & RR1,

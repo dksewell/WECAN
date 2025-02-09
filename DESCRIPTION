@@ -1,29 +1,13 @@
 Package: WECAN
-Type: Package
-Title: Provided Edge Clustering for Weighted Networks
-Version: 1.1.1
-Date: 2024-08-29
-Author: Haomin Li
-Maintainer: Haomin Li <haomin-li@uiowa.edu>
-Description: One paragraph description of what the package does as one or more full sentences.
-License: GPL (>= 2)
-Imports: 
-    actuar,
-    aLSEC,
-    aricode,
-    dplyr,
-    igraph,
-    invgamma,
-    LaplacesDemon,
-    MASS,
-    mclust,
-    Rcpp (>= 1.0.12),
-    RcppArmadillo,
-    SimDesign,
-    truncnorm
-LinkingTo: 
-    Rcpp,
-    RcppArmadillo
-RoxygenNote: 7.3.2.9000
+Title: Weighted Edge Clustering Adjusting for Noise
+Version: 0.0.0.9000
+Authors@R: 
+    person("Haomin", "Li", , "haominli1995@gmail.com", role = c("aut", "cre"))
+	person("Daniel K.", "Sewell", , "daniel-sewell@uiowa.edu", role = c("aut", "cre"))
+Description: This package implements the WECAN model of Li and Sewell, which clusters the edges of a network.  It uses both edge weights and connectivity patterns to automatically detect superfluous edges, or noise edges, which do not reflect any underlying structure in the network.
+License: MIT + file LICENSE
 Encoding: UTF-8
+Imports: Rcpp (>= 1.0.0), RcppArmadillo (>= 14.2.3-1), LaplacesDemon (>= 16.1.6), MASS (>= 7.3-61), aLSEC (>= 0.1.0), aricode (>= 1.0.3), dplyr (>= 1.1.4), igraph (>= 2.1.4), mclust (>= 6.1.1)
+LinkingTo: Rcpp, RcppArmadillo
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

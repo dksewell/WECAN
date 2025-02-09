@@ -21,8 +21,8 @@ computeEta <- function(SS2, RR2, beta, U, V, EE, Lambda, K) {
     .Call('_WECAN_computeEta', PACKAGE = 'WECAN', SS2, RR2, beta, U, V, EE, Lambda, K)
 }
 
-computePmk_w <- function(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0) {
-    .Call('_WECAN_computePmk_w', PACKAGE = 'WECAN', SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0)
+computePmk_w <- function(SS1, RR1, U, V, Y, alph, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi) {
+    .Call('_WECAN_computePmk_w', PACKAGE = 'WECAN', SS1, RR1, U, V, Y, alph, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi)
 }
 
 computePmk_wn <- function(SS1, RR1, U, V, Y, EE, WW, Eta, A_eta, a_phi, Pr_w_eta, h_phi, lambda_a, Elog_t_k, E_t_0) {
@@ -51,25 +51,5 @@ indexEdges <- function(EE, n) {
 
 mat_mult <- function(A, B) {
     .Call('_WECAN_mat_mult', PACKAGE = 'WECAN', A, B)
-}
-
-rcpp_hello_world <- function() {
-    .Call('_WECAN_rcpp_hello_world', PACKAGE = 'WECAN')
-}
-
-rcpparma_hello_world <- function() {
-    .Call('_WECAN_rcpparma_hello_world', PACKAGE = 'WECAN')
-}
-
-rcpparma_outerproduct <- function(x) {
-    .Call('_WECAN_rcpparma_outerproduct', PACKAGE = 'WECAN', x)
-}
-
-rcpparma_innerproduct <- function(x) {
-    .Call('_WECAN_rcpparma_innerproduct', PACKAGE = 'WECAN', x)
-}
-
-rcpparma_bothproducts <- function(x) {
-    .Call('_WECAN_rcpparma_bothproducts', PACKAGE = 'WECAN', x)
 }
 
