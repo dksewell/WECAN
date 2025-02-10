@@ -58,9 +58,6 @@ for (st in 1:15){
 
  est_res <- esti_results[[order(ICL_temp, decreasing = TRUE)[1]]]
  
-# Show the 
- table(est_res)
- 
 
 ######################################################
 # Alternatively, we can use BIC for model selection
