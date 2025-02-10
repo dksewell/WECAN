@@ -6,13 +6,13 @@ output: github_document
 
 ## Overview
 
-
+The Weighted Edge Clustering Adjusting for Noise (WECAN) model is designed to estimate edge clusters in weighted networks. Additionally, this algorithm can identify edges that belong to the "noisy cluster," representing anomalous edges.
 
 ## Installation
 
 Package aLSEC needs to be installed first.
 
-```{r, message=FALSE}
+```{r, echo=TRUE, eval=FALSE}
 install.packages("devtools")
 
 # To install the aLSEC
@@ -25,10 +25,9 @@ devtools::install_github("HaominLi7/WECAN")
 
 ## Example of running the algorithm 
 
-```{r, message=FALSE}
+```{r, echo=TRUE, eval=FALSE}
 
 library(igraph)
-library(aLSEC)
 library(WECAN)
 
 # Simulate a network
@@ -40,6 +39,7 @@ network_data <- wecan_sim(distribution = "Normal", Lambda_sc = 5,
                                      phi_max = 0.2, noise_prop = 0.15, beta = c(2,7,4,6), conc = 8)[[1]]
 
 
+############################################################
 # Run the WECAN model 15 times, find the ICL for each run.
 
 ICL_temp <- rep(NA, 15)
@@ -57,6 +57,9 @@ for (st in 1:15){
 # The one with highest ICL is the final estimation
 
  est_res <- esti_results[[order(ICL_temp, decreasing = TRUE)[1]]]
+ 
+# Show the 
+ table(est_res)
  
 
 ######################################################
@@ -78,6 +81,15 @@ for (st in 1:15){
 
  est_res <- esti_results[[order(BIC_temp, decreasing = FALSE)[1]]]
  
+ 
+###########################################################
+############## Estimation Results #########################
+ 
+esti_clusters <- est_res$estimates$Z_est
+esti_clusters <- as.numeric(as.factor(esti_clusters))
+table(esti_clusters)
 
 ```
+
+Notes that cluster 1 is always the noisy cluster.
 
