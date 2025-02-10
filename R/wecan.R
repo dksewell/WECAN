@@ -4,73 +4,69 @@
 #' of Li and Sewell
 #' 
 #' @param A Network object of class igraph
-#' @param K integer. Maximum number of clusters
-#' @param p integer. Dimension of latent space.
+#' @param K integer. Maximum number of clusters, by default is 20
+#' @param p integer. Dimension of latent space, by default is 3
 #' @param maxIter integer. Maximum number of iterations of the VB-EM algorithm
 #' @param maxIterVB integer. Maximum number of iterations of the 
 #' VB step nested within the EM algorithm
-#' @param a_0 description  
-#' @param A_0 description 
-#' @param B_0 description
-#' @param nu_0 description
-#' @param eta_0 description 
+#' @param a_0 numeric. Hyper-parameters.
+#' @param A_0 numeric. Hyper-parameters.
+#' @param B_0 numeric. Hyper-parameters.
+#' @param nu_0 numeric. Hyper-parameters.
+#' @param eta_0 numeric. Hyper-parameters.
 #' @param CGSteps Number of steps in each conjugate gradient update
 #' nested within the VB-EM algorithm
-#' @param distribution character.  Currently, only "Normal" and "Poisson" are supported.
-#' @param weight_attr_name character.  Name of the weight attribute of A to be modeled.
-#' @param eps description
-#' @param upsilon_SR1 description 
-#' @param upsilon_SR2 description
-#' @param upsilon_UV description
-#' @param Phi_SR1 description
-#' @param Phi_SR2 description
-#' @param Phi_UV description
-#' @param a_a description
-#' @param b_a description
-#' @param t_0 description
-#' @param alpha_0 description
-#' @param beta_0 description
+#' @param distribution character.  Currently, only "Normal" and "Poisson" are supported
+#' @param weight_attr_name character.  Name of the weight attribute of A to be modeled
+#' @param eps numeric. Convergence threshold for relative change of ELBO in variational E step
+#' @param upsilon_SR1 numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+#' @param upsilon_SR2 numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+#' @param upsilon_UV numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+#' @param Phi_SR1 matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+#' @param Phi_SR2 matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+#' @param Phi_UV matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+#' @param a_a numeric. Hyper-parameters.
+#' @param b_a numeric. Hyper-parameters.
+#' @param t_0 numeric. The initial proportion of the noisy edges, range between 0 and 1.
+#' @param alpha_0 numeric. initial alpha
+#' @param beta_0 vector. The initial weights mean for each cluster.
 #' 
 #' @return Object of class 'wecan' with the following elements:
 #' \itemize{
 #' \item estimates, a list with the following elements:
 #'    \itemize{
-#'    \item S1 description
-#'    \item R1 description
-#'    \item S2 description
-#'    \item R2 description
-#'    \item U description
-#'    \item V description
-#'    \item Y description
-#'    \item Eta description
-#'    \item Pmk description
-#'    \item alpha description
-#'    \item Elog_t_k description
-#'    \item E_t_0 description
-#'    \item phi description
-#'    \item sigma_SR1 description
-#'    \item sigma_SR2 description
-#'    \item sigma_UV description
-#'    \item Lambda description
-#'    \item Z_est description
-#'    \item Z_init description
+#'    \item S1: a vector representing overall propensities of nodes to send a large or small number of edges
+#'    \item R1: a vector representing overall propensities of nodes to receive a large or small number of edges
+#'    \item S2: a vector representing overall propensities of nodes to send edges with large or small weights
+#'    \item R2: a vector representing overall propensities of nodes to receive edges with large or small weights
+#'    \item U: a matrix representing nodes' latent sending features
+#'    \item V: a matrix representing nodes' latent receiving features
+#'    \item Y: a matrix representing edge's cluster features
+#'    \item Eta: estimated canonical parameters for the exponential distribution family
+#'    \item Pmk: a matrix that describe the probability of each edge belonging to each cluster 
+#'    \item phi: estimated dispersion parameter for the exponential distribution family
+#'    \item sigma_SR1: covariance matrix for S1 and R1
+#'    \item sigma_SR2: covariance matrix for S2 and R2
+#'    \item sigma_UV: covariance matrix for U and V
+#'    \item Lambda: array representing how each latent cluster features determine the weights
+#'    \item Z_est: estimated edge clusters by WECAN model, "1" suggest a noisy cluster
 #'    }
 #' \item userInputs, a list with the following elements:
 #'    \itemize{
-#'    \item K description
-#'    \item p description
-#'    \item Phi_SR1 description
-#'    \item Phi_SR2 description
-#'    \item Phi_UV description
-#'    \item upsilon_SR1 description
-#'    \item upsilon_SR2 description
-#'    \item upsilon_UV description
-#'    \item a_0 description
-#'    \item A_0 description
-#'    \item B_0 description
-#'    \item nu_0 description
-#'    \item eta_0 description
-#'    \item lambda_a description
+#'    \item K Maximum number of clusters.
+#'    \item p Dimension of latent space.
+#'    \item Phi_SR1 The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+#'    \item Phi_SR2 The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+#'    \item Phi_UV The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+#'    \item upsilon_SR1 Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+#'    \item upsilon_SR2 Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+#'    \item upsilon_UV Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+#'    \item a_0 Hyper-parameters
+#'    \item A_0 Hyper-parameters
+#'    \item B_0 Hyper-parameters
+#'    \item nu_0 Hyper-parameters
+#'    \item eta_0 Hyper-parameters
+#'    \item lambda_a Hyper-parameters
 #'    }
 #' \item network, the original igraph object
 #' }
@@ -88,13 +84,12 @@
 #' @import aricode
 #' @import aLSEC
 #' @import mclust
-#' @import aLSEC
 #' @export
 #' @exportClass wecan
 
 
 
-wecan = function(A, K = 2,
+wecan = function(A, K = 20,
                          p = 3,
                          maxIter=1e3,
                          maxIterVB=100,
@@ -127,6 +122,7 @@ wecan = function(A, K = 2,
   n = vcount(A)
   EE = cbind(ends(A,1:ecount(A),FALSE))
   W = E(A)$weight
+  W_adj = W
   A_adj <- as_adjacency_matrix(A, attr = weight_attr_name)
   
   
@@ -321,7 +317,7 @@ wecan = function(A, K = 2,
   
   
   Z_prev <- apply(Pmk_all,1,find_clust)
-  Z_init <- Z_prev
+  
   
   
   cat("\n Beginning EM algorithm \n")
@@ -536,8 +532,7 @@ wecan = function(A, K = 2,
                               sigma_SR2 = sigma_SR2,
                               sigma_UV = sigma_UV,
                               Lambda = Lambda,
-                              Z_est = Z_est,
-                              Z_init = Z_init),
+                              Z_est = Z_est),
              userInputs = list(K = K,
                                p = p,
                                Phi_SR1 = Phi_SR1,
