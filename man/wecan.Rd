@@ -6,7 +6,7 @@
 \usage{
 wecan(
   A,
-  K = 2,
+  K = 20,
   p = 3,
   maxIter = 1000,
   maxIterVB = 100,
@@ -37,97 +37,93 @@ wecan(
 \arguments{
 \item{A}{Network object of class igraph}
 
-\item{K}{integer. Maximum number of clusters}
+\item{K}{integer. Maximum number of clusters, by default is 20}
 
-\item{p}{integer. Dimension of latent space.}
+\item{p}{integer. Dimension of latent space, by default is 3}
 
 \item{maxIter}{integer. Maximum number of iterations of the VB-EM algorithm}
 
 \item{maxIterVB}{integer. Maximum number of iterations of the
 VB step nested within the EM algorithm}
 
-\item{a_0}{description}
+\item{a_0}{numeric. Hyper-parameters.}
 
-\item{A_0}{description}
+\item{A_0}{numeric. Hyper-parameters.}
 
-\item{B_0}{description}
+\item{B_0}{numeric. Hyper-parameters.}
 
-\item{nu_0}{description}
+\item{nu_0}{numeric. Hyper-parameters.}
 
-\item{eta_0}{description}
+\item{eta_0}{numeric. Hyper-parameters.}
 
 \item{CGSteps}{Number of steps in each conjugate gradient update
 nested within the VB-EM algorithm}
 
-\item{distribution}{character.  Currently, only "Normal" and "Poisson" are supported.}
+\item{distribution}{character.  Currently, only "Normal" and "Poisson" are supported}
 
-\item{weight_attr_name}{character.  Name of the weight attribute of A to be modeled.}
+\item{weight_attr_name}{character.  Name of the weight attribute of A to be modeled}
 
-\item{eps}{description}
+\item{eps}{numeric. Convergence threshold for relative change of ELBO in variational E step}
 
-\item{upsilon_SR1}{description}
+\item{upsilon_SR1}{numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1}
 
-\item{upsilon_SR2}{description}
+\item{upsilon_SR2}{numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2}
 
-\item{upsilon_UV}{description}
+\item{upsilon_UV}{numeric. Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V}
 
-\item{Phi_SR1}{description}
+\item{Phi_SR1}{matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1}
 
-\item{Phi_SR2}{description}
+\item{Phi_SR2}{matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2}
 
-\item{Phi_UV}{description}
+\item{Phi_UV}{matrix. The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V}
 
-\item{a_a}{description}
+\item{a_a}{numeric. Hyper-parameters.}
 
-\item{b_a}{description}
+\item{b_a}{numeric. Hyper-parameters.}
 
-\item{t_0}{description}
+\item{t_0}{numeric. The initial proportion of the noisy edges, range between 0 and 1.}
 
-\item{alpha_0}{description}
+\item{alpha_0}{numeric. initial alpha}
 
-\item{beta_0}{description}
+\item{beta_0}{vector. The initial weights mean for each cluster.}
 }
 \value{
 Object of class 'wecan' with the following elements:
 \itemize{
 \item estimates, a list with the following elements:
 \itemize{
-\item S1 description
-\item R1 description
-\item S2 description
-\item R2 description
-\item U description
-\item V description
-\item Y description
-\item Eta description
-\item Pmk description
-\item alpha description
-\item Elog_t_k description
-\item E_t_0 description
-\item phi description
-\item sigma_SR1 description
-\item sigma_SR2 description
-\item sigma_UV description
-\item Lambda description
-\item Z_est description
-\item Z_init description
+\item S1: a vector representing overall propensities of nodes to send a large or small number of edges
+\item R1: a vector representing overall propensities of nodes to receive a large or small number of edges
+\item S2: a vector representing overall propensities of nodes to send edges with large or small weights
+\item R2: a vector representing overall propensities of nodes to receive edges with large or small weights
+\item U: a matrix representing nodes' latent sending features
+\item V: a matrix representing nodes' latent receiving features
+\item Y: a matrix representing edge's cluster features
+\item Eta: estimated canonical parameters for the exponential distribution family
+\item Pmk: a matrix that describe the probability of each edge belonging to each cluster
+\item phi: estimated dispersion parameter for the exponential distribution family
+\item sigma_SR1: covariance matrix for S1 and R1
+\item sigma_SR2: covariance matrix for S2 and R2
+\item sigma_UV: covariance matrix for U and V
+\item Lambda: array representing how each latent cluster features determine the weights
+\item Z_est: estimated edge clusters by WECAN model, "1" suggest a noisy cluster
 }
 \item userInputs, a list with the following elements:
 \itemize{
-\item K description
-\item p description
-\item Phi_SR1 description
-\item Phi_SR2 description
-\item Phi_UV description
-\item upsilon_SR1 description
-\item upsilon_SR2 description
-\item upsilon_UV description
-\item a_0 description
-\item A_0 description
-\item B_0 description
-\item nu_0 description
-\item eta_0 description
-\item lambda_a description
+\item K Maximum number of clusters.
+\item p Dimension of latent space.
+\item Phi_SR1 The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+\item Phi_SR2 The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+\item Phi_UV The scale matrix of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+\item upsilon_SR1 Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S1 and R1
+\item upsilon_SR2 Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of S2 and R2
+\item upsilon_UV Degrees of freedom of the inverse Wishart distribution, which serves as the prior for the covariance matrix of U and V
+\item a_0 Hyper-parameters
+\item A_0 Hyper-parameters
+\item B_0 Hyper-parameters
+\item nu_0 Hyper-parameters
+\item eta_0 Hyper-parameters
+\item lambda_a Hyper-parameters
 }
 \item network, the original igraph object
 }
