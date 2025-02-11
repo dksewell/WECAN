@@ -547,7 +547,7 @@ wecan = function(A, K = 20,
                                nu_0 = nu_0,
                                eta_0 = eta_0,
                                lambda_a = lambda_a),
-             network = A)
+             A = A)
   class(ret) = "wecan"
   
   return(ret)
