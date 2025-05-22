@@ -121,7 +121,7 @@ wecan = function(A, K = 20,
   M = ecount(A)
   n = vcount(A)
   EE = cbind(ends(A,1:ecount(A),FALSE))
-  W = E(A)$weight
+  W = igraph::edge_attr(A,weight_attr_name)
   W_adj = W
   A_adj <- as_adjacency_matrix(A, attr = weight_attr_name)
   
