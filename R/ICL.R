@@ -38,10 +38,13 @@ ICL = function(object){
   
   
   ICL = - evalConditionalLik_wn2(zHat,
-                                 object$estimates$S1,object$estimates$R1,  
-                                 object$estimates$U,object$estimates$V,
-                                 YY, Eta,
-                                 igraph::edge_attr(A,object$userInputs$weight_attr_name),
+                                 object$estimates$S1,
+                                 object$estimates$R1,  
+                                 object$estimates$U,
+                                 object$estimates$V,
+                                 YY, 
+                                 Eta,
+                                 igraph::edge_attr(object$A,object$userInputs$weight_attr_name),
                                  object$userInputs$lambda_a,
                                  phi,
                                  as_edgelist(object$A,FALSE),
